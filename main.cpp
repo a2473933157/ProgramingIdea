@@ -2,7 +2,5 @@
 
 int main() {
 
-	TestTypeRich();
-
 	return 0;
 }

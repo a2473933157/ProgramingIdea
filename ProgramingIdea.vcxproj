@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClInclude Include="test.h" />
     <ClInclude Include="TypeRich.h" />
+    <ClInclude Include="UserDefineLiteral.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

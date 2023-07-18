@@ -1,32 +1,34 @@
 #include "test.h"
 #include "TypeRich.h"
+#include "UserDefineLiteral.h"
+#include <iostream>
 
 void TestTypeRich() {
-	// 使用预定义的msk类型去定义带单位的变量
-	Momentum m1{ 1.234 };
-	Force f1{ 1.234 };
-	 // 相同msk类型的变量可以相互赋值
-	Momentum m2 = m1;
-	// 不同msk类型的变量赋值会在编译时报错
-	Force f2 = m1;
-	// 同理不能单纯的用double类型
-	auto ReceiveAMomentumVariable = [](const Momentum&) {};
-	ReceiveAMomentumVariable(1.1);
+	//// 使用预定义的msk类型去定义带单位的变量
+	//Momentum m1{ 1.234 };
+	//Force f1{ 1.234 };
+	// // 相同msk类型的变量可以相互赋值
+	//Momentum m2 = m1;
+	//// 不同msk类型的变量赋值会在编译时报错
+	//Force f2 = m1;
+	//// 同理不能单纯的用double类型
+	//auto ReceiveAMomentumVariable = [](const Momentum&) {};
+	//ReceiveAMomentumVariable(1.1);
 
-	// 将构造函数声明为constexpr，就可以定义编译时物理常量
-	constexpr Acceleration g1{ 9.80665 };
-	constexpr Speed c2{ 299792458.0 };
+	//// 将构造函数声明为constexpr，就可以定义编译时物理常量
+	//constexpr Acceleration g1{ 9.80665 };
+	//constexpr Speed c2{ 299792458.0 };
 
-	// 利用自定义字面量类型，可以使用尾缀来更方便的定义常量
-	constexpr Acceleration g1= 9.80665_ms2;
-	constexpr Speed c2= 299792458.0_ms;
+	//// 利用自定义字面量类型，可以使用尾缀来更方便的定义常量
+	//constexpr Acceleration g1= 9.80665_ms2;
+	//constexpr Speed c2= 299792458.0_ms;
 
-	// 可以实现MSK之间的运算
-	Momentum m3 = m1 + m2;
-	Momentum m4 = 30.0_N * 0.1_s;
-	// 非法的量纲运算将会在编译时报出
-	Force f3 = 30.0_N * 0.1_s;
-	Time t1 = 1.0_ms + 0.1_s;
+	//// 可以实现MSK之间的运算
+	//Momentum m3 = m1 + m2;
+	//Momentum m4 = 30.0_N * 0.1_s;
+	//// 非法的量纲运算将会在编译时报出
+	//Force f3 = 30.0_N * 0.1_s;
+	//Time t1 = 1.0_ms + 0.1_s;
 }
 
 void TestStringLiteral() {
@@ -65,32 +67,28 @@ void TestStringLiteral() {
 		  </body>
 		</html>
 	)wzy";
-}
 
-unsigned long long operator "" _w1(unsigned long long n) {
-	return n;
-}
-
-const char* operator "" _w2(const char* str) {
-	return str;
-}
-
-long double operator "" _w3(long double d) {
-	return d;
-}
-
-#include <string>
-std::string operator "" _w4(const char* str, size_t len) {
-	return str;
-}
-
-char operator "" _w5(char n) {
-	return n;
-}
-
-template <char...c> std::string operator "" _w6() {
-	std::string str;
-	(str.push_back(c), ...);
+	const auto fozu = R"(
+                            _ooOoo_
+                           o8888888o
+                           88" . "88
+                           (| -_- |)
+                            O\ = /O
+                        ____/`---'\____
+                      .   ' \\| |// `.
+                       / \\||| : |||// \
+                     / _||||| -:- |||||- \
+                       | | \\\ - /// | |
+                     | \_| ''\---/'' | |
+                      \ .-\__ `-` ___/-. /
+                   ___`. .' /--.--\ `. . __
+                ."" '< `.___\_<|>_/___.' >'"".
+               | | : `- \`.;`\ _ /`;.`/ - ` : | |
+                 \ \ `-. \_ __\ /__ _/ .-` / /
+         ======`-.____`-.___\_____/___.-`____.-'======
+                            `=---='
+		)";
+	//std::cout << fozu;
 }
 
 void TestUserDefinedLiteral() {
