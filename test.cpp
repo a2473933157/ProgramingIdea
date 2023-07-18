@@ -31,6 +31,7 @@ void TestTypeRich() {
 	//Time t1 = 1.0_ms + 0.1_s;
 }
 
+
 void TestStringLiteral() {
 	char a1[] =
 		"<!DOCTYPE html>\r\n"
