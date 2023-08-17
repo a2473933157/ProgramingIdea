@@ -1,6 +1,7 @@
 #include "test.h"
 #include "TypeRich.h"
 #include "UserDefineLiteral.h"
+#include "TheadPool.h"
 #include <iostream>
 
 void TestTypeRich() {
@@ -100,4 +101,26 @@ void TestUserDefinedLiteral() {
 	auto v5 = "hello world"_w4;
 	auto v6 = 'a'_w5;
 	auto v7 = 12.3_w6;
+}
+
+void testThreadPool() {
+
+	ThreadPool pool;
+	thread td1([&pool] {
+		for (int i = 0; i < 10; i++) {
+			pool.addTask([i] { printf("t1 job %d \n", i); });
+		} });
+
+	thread td2([&pool] {
+		for (int i = 0; i < 10; i++) {
+			pool.addTask([i] { printf("t2 job %d \n", i); });
+		} });
+
+	td1.join();
+	td2.join();
+
+	while (!pool.isAllFinished()) {};
+
+	std::cout << "all job finish" << std::endl;
+
 }
