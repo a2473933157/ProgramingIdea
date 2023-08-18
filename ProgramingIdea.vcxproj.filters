@@ -27,6 +27,12 @@
     <ClCompile Include="SmartPtr.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="TheadPool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SyncQueue.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test.h">
@@ -38,7 +44,7 @@
     <ClInclude Include="UserDefineLiteral.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="SmartPtr.h">
+    <ClInclude Include="TheadPool.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

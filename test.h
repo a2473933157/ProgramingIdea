@@ -4,4 +4,5 @@
 void TestTypeRich();
 void TestStringLiteral();
 void TestUserDefinedLiteral();
+void testThreadPool();
 

@@ -19,6 +19,7 @@ private:
 	double m_magnitude{ 0.0 };
 };
 
+
 // 声明常用的物理学类型
 using DimensionlessQuantity = MKSValueType<MKSUnitType<0, 0, 0>>;
 using Length = MKSValueType<MKSUnitType<1, 0, 0>>;

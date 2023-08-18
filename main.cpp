@@ -3,5 +3,6 @@
 
 int main() {
 
+	testThreadPool();
 	return 0;
 }
