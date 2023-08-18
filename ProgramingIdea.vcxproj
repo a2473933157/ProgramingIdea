@@ -130,10 +130,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SmartPtr.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="TypeRich.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SmartPtr.h" />
     <ClInclude Include="test.h" />
     <ClInclude Include="TypeRich.h" />
     <ClInclude Include="UserDefineLiteral.h" />
