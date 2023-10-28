@@ -30,6 +30,9 @@
     <ClCompile Include="SyncQueue.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="231028_design.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test.h">
