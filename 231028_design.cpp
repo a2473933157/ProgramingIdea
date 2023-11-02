@@ -1,15 +1,16 @@
-
+#define ORICODE
+#ifdef ORICODE
 class Graph;
 class GraphFactory {
 public:
-  Graph* create();
+    Graph* create();
 } *_factory;
 
 
 // 考虑一个抽象类Graph，它代表一切可绘制图形要素，并提供了抽象接口Draw()
 class Graph {
 public:
-  virtual void draw() = 0;
+    virtual void draw() = 0;
 };
 
 // 可以继承该抽象类，并对抽象接口实现，以对图形要素进行扩展
@@ -20,12 +21,12 @@ class Picture : public Graph {};
   // 客户可以从相应工厂中获得Graph的一个实例，然后调用Draw()接口绘图
 void test()
 {
-  // ......
-  Graph* graph = _factory->create();
+    // ......
+    Graph* graph = _factory->create();
 
-  // ......
+    // ......
 
-  graph->draw();
+    graph->draw();
 
 }
 
@@ -33,7 +34,7 @@ void test()
 // 这个功能独立于原有的Draw()功能实现，可以用抽象接口drawBrace()来表示
 // 假设test()面向客户，不允许修改，如何设计DrawBase结构，来完成该功能的扩展
 class DrawBrace {
-  virtual void drawBrace() = 0;
+    virtual void drawBrace() = 0;
 };
 class DrawBraceWithStyle1 : public DrawBrace {};
 class DrawBraceWithStyle2 : public DrawBrace {};
@@ -43,7 +44,7 @@ class DrawBraceWithStyle2 : public DrawBrace {};
 // 该功能同样独立于原有的Draw()功能以及drawBrace()实现，可以用抽象接口drawScrollBar()表示
 // 允许客户使用参数来控制工厂，是否为图形要素绘制Brace或者ScrollBar
 class DrawScrollBar {
-  virtual void drawScrollBar() = 0;
+    virtual void drawScrollBar() = 0;
 };
 class DrawScrollBarWithStyle1 : public DrawBrace {};
 class DrawScrollBarWithStyle2 : public DrawBrace {};
@@ -53,6 +54,118 @@ class DrawScrollBarWithStyle2 : public DrawBrace {};
 // 假设Graph的开发由A来负责，而新的扩展功能由B来负责，并且A不知道B的工作内容
 // 如何调整前面的结构，来方便A开发新的图形要素Table，并使Table同样支持12中Brace和ScrollBar的功能
 class Table : public Graph {};
+#endif
+
+//#define CHENCODE
+#ifdef CHENCODE
+class Graph;
+class GraphFactory {
+public:
+    Graph* create();
+} *_factory;
+
+
+// 考虑一个抽象类Graph，它代表一切可绘制图形要素，并提供了抽象接口Draw()
+class Graph {
+public:
+    virtual void draw() = 0;
+};
+
+// 可以继承该抽象类，并对抽象接口实现，以对图形要素进行扩展
+class Text : public Graph {};
+class Picture : public Graph {};
+// ...
+
+
+// 1. 现在新增了为所有图形要素绘制边框的功能，并要求支持多种边框风格
+// 这个功能独立于原有的Draw()功能实现，可以用抽象接口drawBrace()来表示
+// 假设test()面向客户，不允许修改，如何设计DrawBase结构，来完成该功能的扩展
+class DrawBrace {
+    virtual void drawBrace() = 0;
+};
+class DrawBraceWithStyle1 : public DrawBrace {};
+class DrawBraceWithStyle2 : public DrawBrace {};
+// ...
+
+// 2. 在1的基础上，现在新增了为所有图形要素绘制滚动条的功能，同样要求支持多种滚动条风格
+// 该功能同样独立于原有的Draw()功能以及drawBrace()实现，可以用抽象接口drawScrollBar()表示
+// 允许客户使用参数来控制工厂，是否为图形要素绘制Brace或者ScrollBar
+class DrawScrollBar {
+    virtual void drawScrollBar() = 0;
+};
+class DrawScrollBarWithStyle1 : public DrawBrace {};
+class DrawScrollBarWithStyle2 : public DrawBrace {};
+// ...
+
+
+class Painter {
+public:
+    Painter(Graph* graph)
+        : m_graph(graph)
+        , m_braceStyle(BraceStyle::BraceStyleNum)
+        , m_scrollBarStyle(ScrollBarStyle::ScrollBarStyleNum)
+        {}
+    void draw() {
+        // draw graph
+        m_graph->draw();
+
+        // draw brace
+        switch (m_braceStyle) {
+        case(BraceStyle1): { DrawBraceWithStyle1{}.drawBrace(); break; }
+        case(BraceStyle2): { DrawBraceWithStyle2{}.drawBrace(); break; }
+        default: {}
+        }
+
+        // draw scroll bar
+        switch (m_scrollBarStyle) {
+        case(ScrollBarStyle1): { DrawScrollBarWithStyle1{}.drawScrollBar(); break; }
+        case(ScrollBarStyle2): { DrawScrollBarWithStyle2{}.drawScrollBar(); break; }
+        default: {}
+        }
+    }
+    enum BraceStyle {
+        BraceStyle1,
+        BraceStyle2,
+        BraceStyleNum
+    };
+    enum ScrollBarStyle {
+        ScrollBarStyle1,
+        ScrollBarStyle2,
+        ScrollBarStyleNum
+    };
+    void setBraceType(BraceStyle style);
+    void setScrollBarType(ScrollBarStyle style);
+private:
+    Graph* m_graph;
+    BraceStyle m_braceStyle;
+    ScrollBarStyle m_scrollBarStyle;
+    };
+
+class PainterFactory {
+public:
+    Painter* create() {
+        Painter* painter(new Graph());
+        painter->setBraceType(Painter::BraceStyle::BraceStyle1);
+        painter->setScrollBarType(Painter::ScrollBarStyle::ScrollBarStyle1);
+        return painter;
+    }
+} *_painterFactory;
+
+void test()
+{
+    // ......
+    Painter* painter = _painterFactory->create();
+
+    painter->draw();
+
+}
+
+// 3. 在2的基础上，现在要新支持一种新的图形要素Table
+// 假设Graph的开发由A来负责，而新的扩展功能由B来负责，并且A不知道B的工作内容
+// 如何调整前面的结构，来方便A开发新的图形要素Table，并使Table同样支持12中Brace和ScrollBar的功能
+class Table : public Graph {};
+
+#endif
 
 #include <vector>
 class Shape {};

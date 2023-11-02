@@ -129,7 +129,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="231028_design.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SyncQueue.cpp" />
     <ClCompile Include="test.cpp" />
